@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -76,3 +77,6 @@ UPDATERINGAR
 docker build -t simonnilsson584/stock-frontend:latest .
 docker push simonnilsson584/stock-frontend:latest
 kubectl apply -f k8s-frontend.yaml
+=======
+# stock-frontend
+>>>>>>> a0877e077ee4f8526ae2acbc4d0c459b80afdde9
