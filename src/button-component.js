@@ -60,8 +60,6 @@ const ButtonComponent = () => {
   return (
     <div>
       <h1>API Tester 2.0</h1>
-      <h1>API Tester 2.0</h1>
-      <h1>API Tester 2.0</h1>
       <button onClick={handleGetWelcomeMessage}>Get Welcome Message</button>
       <button onClick={handleGetStocks}>Get Stocks</button>
       <button onClick={handlePostStock}>Post Stock</button>
