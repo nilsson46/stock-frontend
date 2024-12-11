@@ -20,7 +20,10 @@ const ButtonComponent = () => {
     const [welcomeMessage, setWelcomeMessage] = useState(null);
     const [stocks, setStocks] = useState(null);
     const [postResponse, setPostResponse] = useState(null);
-  
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+    const [symbol, setSymbol] = useState('');
+
     const handleGetWelcomeMessage = async () => {
       console.log('Fetching welcome message...');
       try {
@@ -50,9 +53,9 @@ const ButtonComponent = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            name: 'Apple',
-            price: 150.00,
-            symbol: 'AAPL',
+            name,
+            price: parseFloat(price),
+            symbol,
           }),
         });
         setPostResponse(data);
@@ -63,49 +66,67 @@ const ButtonComponent = () => {
   
     return (
       <div>
-        <button onClick={handleGetWelcomeMessage}>Fetch Welcome Message</button>
-        <button onClick={handleGetStocks}>Fetch Stocks</button>
-        <button onClick={handlePostStock}>Post Stock</button>
-  
-        {welcomeMessage && (
-          <div>
-            <h2>Welcome Message</h2>
-            <p>{welcomeMessage.message}</p>
-          </div>
-        )}
-  
-        {stocks && (
-          <div>
-            <h2>Stocks</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Symbol</th>
+      <input
+        type="text"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Price"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Symbol"
+        value={symbol}
+        onChange={(e) => setSymbol(e.target.value)}
+      />
+      <button onClick={handleGetWelcomeMessage}>Fetch Welcome Message</button>
+      <button onClick={handleGetStocks}>Fetch Stocks</button>
+      <button onClick={handlePostStock}>Post Stock</button>
+
+      {welcomeMessage && (
+        <div>
+          <h2>Welcome Message</h2>
+          <p>{welcomeMessage.message}</p>
+        </div>
+      )}
+
+      {stocks.length > 0 && (
+        <div>
+          <h2>Stocks</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Symbol</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stocks.map((stock, index) => (
+                <tr key={index}>
+                  <td>{stock.name}</td>
+                  <td>{stock.price}</td>
+                  <td>{stock.symbol}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {stocks.map((stock, index) => (
-                  <tr key={index}>
-                    <td>{stock.name}</td>
-                    <td>{stock.price}</td>
-                    <td>{stock.symbol}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-  
-        {postResponse && (
-          <div>
-            <h2>Post Stock Response</h2>
-            <pre>{JSON.stringify(postResponse, null, 2)}</pre>
-          </div>
-        )}
-      </div>
-    );
-  };
-  
-  export default ButtonComponent;
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {postResponse && (
+        <div>
+          <h2>Post Stock Response</h2>
+          <p>{postResponse.message}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ButtonComponent;
