@@ -70,7 +70,7 @@ const ButtonComponent = () => {
         {welcomeMessage && (
           <div>
             <h2>Welcome Message</h2>
-            <pre>{JSON.stringify(welcomeMessage, null, 2)}</pre>
+            <p>{welcomeMessage.message}</p>
           </div>
         )}
   
