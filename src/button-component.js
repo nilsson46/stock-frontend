@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 
-const backendUrl = 'http://172.233.36.167';
+const backendUrl = 'http://172.233.35.175';
+//Senaste http://172.233.35.175
+//näst senaste: http://172.233.36.167
 
 const fetchData = async (endpoint, options = {}) => {
   try {
