@@ -4,7 +4,8 @@ const StockData = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('http://stock-backend.stock-analysis.svc.cluster.local/stocks') // Uppdatera URL:en till din backend-tjänst
+    fetch('http://172.233.35.175')
+    //http://stock-backend.stock-analysis.svc.cluster.local/stocks // Uppdatera URL:en till din backend-tjänst
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error('Error fetching data:', error));

@@ -97,7 +97,7 @@ const ButtonComponent = () => {
         </div>
       )}
 
-      {stocks.length > 0 && (
+      {stocks && (
         <div>
           <h2>Stocks</h2>
           <table>
