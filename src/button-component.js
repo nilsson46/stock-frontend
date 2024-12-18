@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import './button-component.css'; 
 
 const backendUrl = 'http://172.233.35.175';
 //Senaste http://172.233.35.175
@@ -67,68 +68,57 @@ const ButtonComponent = () => {
     };
   
     return (
-      <div>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Price"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Symbol"
-        value={symbol}
-        onChange={(e) => setSymbol(e.target.value)}
-      />
-      <button onClick={handleGetWelcomeMessage}>Fetch Welcome Message</button>
-      <button onClick={handleGetStocks}>Fetch Stocks</button>
-      <button onClick={handlePostStock}>Post Stock</button>
-
-      {welcomeMessage && (
-        <div>
-          <h2>Welcome Message</h2>
-          <p>{welcomeMessage.message}</p>
+      <div className="container">
+        <div className="input-group">
+          <input className= "input-field" type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input className= "input-field" type="text" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+          <input className= "input-field" type="text" placeholder="Symbol" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
         </div>
-      )}
-
-      {stocks && (
-        <div>
-          <h2>Stocks</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Symbol</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stocks.map((stock, index) => (
-                <tr key={index}>
-                  <td>{stock.name}</td>
-                  <td>{stock.price}</td>
-                  <td>{stock.symbol}</td>
+        <div className="button-group">
+          <button onClick={() => handleGetStocks('/', setWelcomeMessage)}>Fetch Welcome Message</button>
+          <button onClick={() => handleGetStocks('/stocks', setStocks)}>Fetch Stocks</button>
+          <button onClick={handlePostStock}>Post Stock</button>
+        </div>
+  
+        {welcomeMessage && (
+          <div className="message">
+            <h2>Welcome Message</h2>
+            <p>{welcomeMessage.message}</p>
+          </div>
+        )}
+  
+        {stocks && (
+          <div className="stocks">
+            <h2>Stocks</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Symbol</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {postResponse && (
-        <div>
-          <h2>Post Stock Response</h2>
-          <p>{postResponse.message}</p>
-        </div>
-      )}
-    </div>
-  );
+              </thead>
+              <tbody>
+                {stocks.map((stock, index) => (
+                  <tr key={index}>
+                    <td>{stock.name}</td>
+                    <td>{stock.price}</td>
+                    <td>{stock.symbol}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+  
+        {postResponse && (
+          <div className="post-response">
+            <h2>Post Stock Response</h2>
+            <p>{postResponse.message}</p>
+          </div>
+        )}
+      </div>
+    );
 };
 
 export default ButtonComponent;
