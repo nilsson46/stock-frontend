@@ -71,7 +71,7 @@ const ButtonComponent = () => {
     const handleDeleteStock = async (symbol) => {
       console.log('Deleting stock...');
       try {
-        const data = await fetchData(`/deletestock/${symbol}`, {
+        const data = await fetchData(`/deletestock?symbol=${symbol}`, { // Use query parameter
           method: 'DELETE',
         });
         setPostResponse(data);
@@ -99,8 +99,8 @@ const ButtonComponent = () => {
           </div>
         )}
         <div className="button-group">
-          <button onClick={() => handleGetStocks('/', setWelcomeMessage)}>Fetch Welcome Message</button>
-          <button onClick={() => handleGetStocks('/stocks', setStocks)}>Fetch Stocks</button>
+          <button onClick={handleGetWelcomeMessage}>Fetch Welcome Message</button>
+          <button onClick={handleGetStocks}>Fetch Stocks</button>
           {action === 'add' && <button onClick={handlePostStock}>Post Stock</button>}
           {action === 'delete' && <button onClick={() => handleDeleteStock(symbol)}>Delete Stock</button>}
         </div>
