@@ -66,6 +66,18 @@ const ButtonComponent = () => {
         console.error('Error posting stock:', error);
       }
     };
+
+    const handleDeleteStock = async (symbol) => {
+      console.log('Deleting stock...');
+      try {
+        const data = await fetchData(`/deletestock/${symbol}`, {
+          method: 'DELETE',
+        });
+        setPostResponse(data);
+      } catch (error) {
+        console.error('Error deleting stock:', error);
+      }
+    };
   
     return (
       <div className="container">
@@ -78,6 +90,7 @@ const ButtonComponent = () => {
           <button onClick={() => handleGetStocks('/', setWelcomeMessage)}>Fetch Welcome Message</button>
           <button onClick={() => handleGetStocks('/stocks', setStocks)}>Fetch Stocks</button>
           <button onClick={handlePostStock}>Post Stock</button>
+          <button onClick={() => handleDeleteStock(symbol)}>Delete Stock</button>
         </div>
   
         {welcomeMessage && (
