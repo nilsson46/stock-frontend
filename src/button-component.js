@@ -79,12 +79,32 @@ const ButtonComponent = () => {
         console.error('Error deleting stock:', error);
       }
     };
+
+    const handleUpdateStockPrice = async () => {
+      console.log('Updating stock price...');
+      try {
+        const data = await fetchData('/updatestockprice', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            symbol,
+            new_price: parseFloat(price),
+          }),
+        });
+        setPostResponse(data);
+      } catch (error) {
+        console.error('Error updating stock price:', error);
+      }
+    };
   
     return (
       <div className="container">
         <div className="action-toggle">
           <button onClick={() => setAction('add')}>Add Stock</button>
           <button onClick={() => setAction('delete')}>Delete Stock</button>
+          <button onClick={() => setAction('update')}>Update Stock Price</button>
         </div>
         {action === 'add' && (
           <div className="input-group">
@@ -98,11 +118,18 @@ const ButtonComponent = () => {
             <input className="input-field" type="text" placeholder="Symbol" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
           </div>
         )}
+        {action === 'update' && (
+          <div className="input-group">
+            <input className="input-field" type="text" placeholder="Symbol" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
+            <input className="input-field" type="text" placeholder="New Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+          </div>
+        )}
         <div className="button-group">
           <button onClick={handleGetWelcomeMessage}>Fetch Welcome Message</button>
           <button onClick={handleGetStocks}>Fetch Stocks</button>
           {action === 'add' && <button onClick={handlePostStock}>Post Stock</button>}
           {action === 'delete' && <button onClick={() => handleDeleteStock(symbol)}>Delete Stock</button>}
+          {action === 'update' && <button onClick={handleUpdateStockPrice}>Update Stock Price</button>}
         </div>
   
         {welcomeMessage && (
