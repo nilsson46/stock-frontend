@@ -79,6 +79,7 @@ const ButtonComponent = () => {
         console.error('Error deleting stock:', error);
       }
     };
+    handleDeleteStock('hej');
   
     return (
       <div className="container">
