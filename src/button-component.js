@@ -71,15 +71,14 @@ const ButtonComponent = () => {
     const handleDeleteStock = async (symbol) => {
       console.log('Deleting stock...');
       try {
-        const data = await fetch(`http://172.233.35.175/deletestock?symbol=${symbol}`, {
+        const data = await fetchData(`/deletestock?symbol=${symbol}`, { // Use query parameter
           method: 'DELETE',
-      });
+        });
         setPostResponse(data);
       } catch (error) {
         console.error('Error deleting stock:', error);
       }
     };
-    handleDeleteStock('hej');
   
     return (
       <div className="container">
