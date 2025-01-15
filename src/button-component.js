@@ -26,6 +26,7 @@ const ButtonComponent = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [symbol, setSymbol] = useState('');
+    const [action, setAction] = useState('add'); // New state to toggle between add and delete
 
     const handleGetWelcomeMessage = async () => {
       console.log('Fetching welcome message...');
@@ -81,16 +82,27 @@ const ButtonComponent = () => {
   
     return (
       <div className="container">
-        <div className="input-group">
-          <input className= "input-field" type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
-          <input className= "input-field" type="text" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
-          <input className= "input-field" type="text" placeholder="Symbol" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
+        <div className="action-toggle">
+          <button onClick={() => setAction('add')}>Add Stock</button>
+          <button onClick={() => setAction('delete')}>Delete Stock</button>
         </div>
+        {action === 'add' && (
+          <div className="input-group">
+            <input className="input-field" type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <input className="input-field" type="text" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+            <input className="input-field" type="text" placeholder="Symbol" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
+          </div>
+        )}
+        {action === 'delete' && (
+          <div className="input-group">
+            <input className="input-field" type="text" placeholder="Symbol" value={symbol} onChange={(e) => setSymbol(e.target.value)} />
+          </div>
+        )}
         <div className="button-group">
           <button onClick={() => handleGetStocks('/', setWelcomeMessage)}>Fetch Welcome Message</button>
           <button onClick={() => handleGetStocks('/stocks', setStocks)}>Fetch Stocks</button>
-          <button onClick={handlePostStock}>Post Stock</button>
-          <button onClick={() => handleDeleteStock(symbol)}>Delete Stock</button>
+          {action === 'add' && <button onClick={handlePostStock}>Post Stock</button>}
+          {action === 'delete' && <button onClick={() => handleDeleteStock(symbol)}>Delete Stock</button>}
         </div>
   
         {welcomeMessage && (
